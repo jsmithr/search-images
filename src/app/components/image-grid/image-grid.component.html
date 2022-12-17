@@ -1,0 +1,5 @@
+<section class="section-images-grid">
+  <article class="image-item" *ngFor="let image of data" data-bs-toggle="modal" data-bs-target="#image-modal" (click)="selectImage(image)" style="background-image: url({{image.previewURL}})">
+  </article>
+</section>
+<app-image-preview></app-image-preview>
