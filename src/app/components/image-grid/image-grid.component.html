@@ -1,5 +1,8 @@
 <section class="section-images-grid">
-  <article class="image-item" *ngFor="let image of data" data-bs-toggle="modal" data-bs-target="#image-modal" (click)="selectImage(image)" style="background-image: url({{image.previewURL}})">
-  </article>
+  <span class="note-image-grid">Clic en una imagen para ver el detalle</span>
+  <div class="images-grid">
+    <article class="image-item" *ngFor="let image of data" data-bs-toggle="modal" title="Seleccionar" data-bs-target="#image-modal" (click)="selectImage(image)" style="background-image: url({{image.previewURL}})">
+    </article>
+  </div>
+  <app-image-preview></app-image-preview>
 </section>
-<app-image-preview></app-image-preview>

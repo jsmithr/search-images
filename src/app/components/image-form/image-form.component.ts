@@ -9,6 +9,7 @@ import { PixabayService } from 'src/app/services/pixabay.service';
 })
 export class ImageFormComponent implements OnInit {
   data: Pixabay[] = [];
+  loading: boolean = false;
   params: { q: string, category: string } = { q: "", category: "" };
 
   constructor(private pixabayService: PixabayService) {
@@ -19,8 +20,10 @@ export class ImageFormComponent implements OnInit {
   }
 
   findImages() {
+    this.loading = true;
     this.pixabayService.get(this.params).subscribe(({ hits }) => {
       this.data = hits;
+      this.loading = false;
     });
   }
 }
