@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Pixabay } from 'src/app/interfaces/pixabay.interface';
-import { ImageActions } from 'src/app/store/image.actions';
+import { ImageActions } from 'src/app/store/image/image.actions';
 
 @Component({
   selector: 'app-image-grid',

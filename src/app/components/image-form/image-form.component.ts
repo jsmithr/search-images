@@ -1,16 +1,29 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Pixabay } from 'src/app/interfaces/pixabay.interface';
 import { PixabayService } from 'src/app/services/pixabay.service';
 
 @Component({
   selector: 'app-image-form',
   templateUrl: './image-form.component.html',
-  styleUrls: ['./image-form.component.css']
+  styleUrls: ['./image-form.component.scss']
 })
 export class ImageFormComponent implements OnInit {
   data: Pixabay[] = [];
   loading: boolean = false;
-  params: { q: string, category: string } = { q: "", category: "" };
+  imageForm: FormGroup = new FormGroup({
+    q: new FormControl(''),
+    category: new FormControl(''),
+  });
+  // params: { q: string, category: string } = { q: "", category: "" };
+  categoryList = [
+    { code: 'science', label: 'Ciencia' },
+    { code: 'education', label: 'Educación' },
+    { code: 'people', label: 'Personas' },
+    { code: 'feelings', label: 'Sentimientos' },
+    { code: 'computer', label: 'Computadores' },
+    { code: 'buildings', label: 'Edicios' },
+  ]
 
   constructor(private pixabayService: PixabayService) {
     this.findImages();
@@ -21,7 +34,8 @@ export class ImageFormComponent implements OnInit {
 
   findImages() {
     this.loading = true;
-    this.pixabayService.get(this.params).subscribe(({ hits }) => {
+    let params = this.imageForm?.getRawValue();
+    this.pixabayService.get().subscribe(({ hits }) => {
       this.data = hits;
       this.loading = false;
     });

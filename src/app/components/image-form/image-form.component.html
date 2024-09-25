@@ -3,37 +3,41 @@
     <div class="col-md-12 col-sm-12 col-xs-12 mb-3">
       <h5>Busqueda de imágenes por palabra clave o categoría</h5>
     </div>
-    <div class="col-md-4 col-sm-4 col-xs-7">
-      <div>
-        <label class="form-label">Palabra Clave</label>
-        <input type="text" [(ngModel)]="params.q" class="form-control" maxlength="100" (keydown.enter)="findImages()" placeholder="Gatos">
-      </div>
+    <div class="col-12">
+      <form [formGroup]="imageForm"
+            class="row justify-content-center">
+        <div class="col-md-4 col-sm-4 col-xs-7">
+          <mat-form-field>
+            <mat-label>Palabra Clave</mat-label>
+            <input matInput
+                   formControlName="q">
+          </mat-form-field>
+        </div>
+        <div class="col-md-4 col-sm-4 col-xs-5">
+          <mat-form-field>
+            <mat-label>Categoría</mat-label>
+            <mat-select formControlName="category">
+              <mat-option *ngFor="let category of categoryList"
+                          [value]="category.code">{{category.label}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-4 col-sm-4 col-xs-12 justify-content-center">
+          <button mat-stroked-button
+                  (click)="findImages()"
+                  [disabled]="loading">Buscar</button>
+        </div>
+      </form>
     </div>
-    <div class="col-md-4 col-sm-4 col-xs-5">
-      <label for="txtkeyWord" class="form-label">Categoría</label>
-      <select class="form-select" aria-label="list of categories" [(ngModel)]="params.category">
-        <option value="">Seleccione la categoría</option>
-        <option value="science">Ciencia</option>
-        <option value="education">Educación</option>
-        <option value="people">Personas</option>
-        <option value="feelings">Sentimientos</option>
-        <option value="computer">Computadores</option>
-        <option value="buildings">Edicios</option>
-      </select>
-    </div>
-    <div class="col-md-4 col-sm-4 col-xs-12 justify-content-center">
-      <button type="button" class="btn btn-primary mt-4" (click)="findImages()" [disabled]="loading">
-        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="loading"></span>
-        <span>Buscar imágenes</span>
-      </button>
-    </div>
-    <div class="col-md-12 col-sm-12 col-xs-12 text-center" *ngIf="loading" >
-      <div class="spinner-grow mt-5" style="width: 2rem; height: 2rem;" role="status">
+
+
+    <div class="col-md-12 col-sm-12 col-xs-12 text-center"
+         *ngIf="loading">
+      <div class="spinner-grow mt-5"
+           style="width: 2rem; height: 2rem;"
+           role="status">
         <span class="visually-hidden">Loading...</span>
       </div>
-    </div>
-    <div class="col-md-12 col-sm-12 col-xs-12" *ngIf="!loading">
-      <app-image-grid [data]="data" *ngIf="!loading"></app-image-grid>
     </div>
   </div>
 </div>

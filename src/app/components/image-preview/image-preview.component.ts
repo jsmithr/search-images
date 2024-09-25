@@ -16,7 +16,6 @@ export class ImagePreviewComponent implements OnInit {
     this.imageObservable$ = store.select('image');
     this.imageObservable$.subscribe((img: any) => {
       this.image = img.image;
-      console.log("🚀 ~ file: image-preview.component.ts:19 ~ ImagePreviewComponent ~ constructor ~ this.image", this.image)
     });
   }
 
