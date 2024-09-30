@@ -4,27 +4,25 @@
   color: rgb(155, 155, 155);
   margin-bottom: 10px;
 }
-.section-images-grid {
-  margin-top: 50px;
-}
+
 .images-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
   gap: 20px;
-}
 
-.image-item {
-  height: 100px;
-  width: 100px;
-  border-radius: 8px;
-  transition: all .3s ease;
-  position: relative;
-  overflow: hidden;
-  cursor: pointer;
-  background-color: rgb(177, 177, 177);
+  &__item {
+    height: 100px;
+    width: 100px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    background-color: rgb(211, 211, 211);
+    box-shadow: 2px 2px 4px #8c8c8c66;
 
-  &:hover {
-    transform: scale(1.07);
+    &:hover {
+      transform: scale(1.07);
+    }
   }
 }
-

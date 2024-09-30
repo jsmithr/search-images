@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { PixabayStore } from 'src/app/interfaces/pixabay-store.interface';
 import { Pixabay } from 'src/app/interfaces/pixabay.interface';
 import { PixabayService } from 'src/app/services/pixabay.service';
+import { ImageActions } from 'src/app/store/image/image.actions';
 
 @Component({
   selector: 'app-image-form',
@@ -9,13 +12,11 @@ import { PixabayService } from 'src/app/services/pixabay.service';
   styleUrls: ['./image-form.component.scss']
 })
 export class ImageFormComponent implements OnInit {
-  data: Pixabay[] = [];
-  loading: boolean = false;
   imageForm: FormGroup = new FormGroup({
     q: new FormControl(''),
     category: new FormControl(''),
   });
-  // params: { q: string, category: string } = { q: "", category: "" };
+  count: number = 0;
   categoryList = [
     { code: 'science', label: 'Ciencia' },
     { code: 'education', label: 'Educación' },
@@ -23,9 +24,9 @@ export class ImageFormComponent implements OnInit {
     { code: 'feelings', label: 'Sentimientos' },
     { code: 'computer', label: 'Computadores' },
     { code: 'buildings', label: 'Edicios' },
-  ]
+  ];
 
-  constructor(private pixabayService: PixabayService) {
+  constructor(private pixabayService: PixabayService, private store: Store<PixabayStore>) {
     this.findImages();
   }
 
@@ -33,11 +34,18 @@ export class ImageFormComponent implements OnInit {
   }
 
   findImages() {
-    this.loading = true;
+    this.pixabayService.loading = true;
     let params = this.imageForm?.getRawValue();
-    this.pixabayService.get().subscribe(({ hits }) => {
-      this.data = hits;
-      this.loading = false;
+    this.pixabayService.get(params).subscribe(({ hits }) => {
+
+      setTimeout(() => {
+        this.store.dispatch(ImageActions.listImage({ data: hits }));
+        this.pixabayService.loading = false;
+      }, 2000);
     });
+  }
+
+  getLoading() {
+    return this.pixabayService.loading;
   }
 }

@@ -1,49 +1,49 @@
-<div class="modal fade " id="image-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <!-- <div class="modal-header">
-        <h5 class="modal-title">Vista previa</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div> -->
-      <div class="modal-body">
-        <div class="card" *ngIf="image">
-          <div class="card-header">
-            <div>
-              <div class="img-user">
-                <img [src]="image.userImageURL" [alt]="image.user">
-              </div>
-              <div class="name-user">
-                <span>{{image.user}}</span>
-              </div>
-            </div>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <img [src]="image.webformatURL" [alt]="image.tags">
-          <div class="card-body">
-            <h5 class="card-title">{{image.type}}</h5>
-            <div class="row g-3">
-              <div class="col-md-12">
-                <div class="input-group flex-nowrap">
-                  <span class="input-group-text bg-primary text-white">Tags</span>
-                  <input type="text" class="form-control" readonly [value]="image.tags">
-                </div>
-              </div>
-              <div class="col-md-6 col-xs-6 col-sm-6">
-                <div class="input-group flex-nowrap">
-                  <span class="input-group-text bg-primary text-white">Vistas</span>
-                  <input type="text" class="form-control" readonly [value]="image.views | number: '1.0-0'">
-                </div>
-              </div>
-              <div class="col-md-6 col-xs-6 col-sm-6">
-                <div class="input-group flex-nowrap">
-                  <span class="input-group-text bg-primary text-white">Me gustas</span>
-                  <input type="text" class="form-control" readonly [value]="image.likes | number: '1.0-0'">
-                </div>
-              </div>
-            </div>
-          </div>
+<mat-dialog-content class="image-preview p-0">
+  <mat-card>
+    <mat-card-header>
+      <div mat-card-avatar
+           class="image-preview__img-user"
+           style="background-image: url({{image.userImageURL}})">
+      </div>
+      <mat-card-title>{{image.user}}</mat-card-title>
+      <button mat-icon-button
+              class="image-preview__btn-close"
+              (click)="close()"
+              aria-label="Close">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-card-header>
+
+    <mat-card-content class="p-0">
+      <div class="image-preview__image">
+        <img mat-card-image
+             [src]="image.webformatURL"
+             [alt]="image.tags">
+      </div>
+
+      <div class="p-2">
+        <div>
+          <mat-chip *ngFor="let tag of getTags()">
+            {{tag}}
+          </mat-chip>
+        </div>
+
+        <div class="mt-2">
+          <mat-chip>
+            <mat-icon aria-hidden="false"
+                      aria-label="Icon View"
+                      fontIcon="visibility"></mat-icon>
+            <span>{{image.views | number: '1.0-0'}}</span>
+          </mat-chip>
+
+          <mat-chip>
+            <mat-icon aria-hidden="false"
+                      aria-label="Icon Like"
+                      fontIcon="favorite"></mat-icon>
+            <span>{{image.likes | number: '1.0-0'}}</span>
+          </mat-chip>
         </div>
       </div>
-    </div>
-  </div>
-</div>
+    </mat-card-content>
+  </mat-card>
+</mat-dialog-content>
